@@ -1,4 +1,6 @@
 #!/bin/bash
+
+
 #######
 ###  Preparation of the nodes for kubeadm initialization and joining
 ###  using the following ami - ami-04a30c3f913434cfb
