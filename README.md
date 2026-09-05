@@ -56,3 +56,5 @@ kubectl apply --validate=false -f https://github.com/cert-manager/cert-manager/r
     wget https://github.com/kubernetes-sigs/aws-load-balancer-controller/releases/download/v3.5.0/v3_5_0_full.yaml
     kubectl apply -f v3_5_0_full.yaml
 ```
+
+Additional fix to make LB work is needed in the form of aws-lb-controller-sa.yaml pointing to the AWS role used above.
