@@ -34,3 +34,9 @@ kubeadm join 172.31.12.34:6443 --token u27dng.bb8l981234567890 \
 ```
 
 but, please refer to the output of the `kubeadmin init` as the security tokens are unique for each setup.  
+
+To get access to the cluster via the API, please copy over the `/etc/kubernetes/admin.conf` from the control plane to your local `$HOME/.kube/config` and run 
+
+```
+kubectl config set-cluster kubernetes --server=https://<DNS or IP>>:6443
+```
