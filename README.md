@@ -40,3 +40,19 @@ To get access to the cluster via the API, please copy over the `/etc/kubernetes/
 ```
 kubectl config set-cluster kubernetes --server=https://<DNS or IP>>:6443
 ```
+
+
+
+For external access to services, the AWS Load Balancer controller was implemented as described in `https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/deploy/installation/`. This also requires some work on AWS side:
+* tagging the subnets
+* creating and IAM policy per `https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v3.5.0/docs/install/iam_policy.json`
+* creating a role associated with the policy and binding it to the instances
+* Install cert manager:
+```
+kubectl apply --validate=false -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.3/cert-manager.yaml
+```
+* Download and apply LBC spec from https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/deploy/installation/#apply-yaml:
+```
+    wget https://github.com/kubernetes-sigs/aws-load-balancer-controller/releases/download/v3.5.0/v3_5_0_full.yaml
+    kubectl apply -f v3_5_0_full.yaml
+```
