@@ -28,7 +28,8 @@ kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/
 
 With that done, you should be ready to add the worker nodes to the cluster. An example command might look like this:
 
-```kubeadm join 172.31.12.34:6443 --token u27dng.bb8l981234567890 \
+```
+kubeadm join 172.31.12.34:6443 --token u27dng.bb8l981234567890 \
 	--discovery-token-ca-cert-hash sha256:123456789009d9ac4b0e5ccc6ca476909550c7280a56aba608f0c9fb7a9932e3 
 ```
 
