@@ -7,6 +7,10 @@
 
 ### prepare
 sudo su -i
+swapoff -a
+sed -i '/swap/d' /etc/fstab
+setenforce 0
+sed -i 's/^SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config
 yum -y install wget
 ### tripped over the below upon first kubeadm init launch
 sysctl net.ipv4.ip_forward=1
