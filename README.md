@@ -11,7 +11,7 @@ Nodes are deployed in the same subnet, and the security group allowing the full 
 ###nodes FW is a consideration
 
 
-After spinning up the instances, prep_node.sh script to be executed on each instance as a preparation step to get them configured up to specs in order to be able to install Kubernetes cluster via kubeadm. This involves disabling swap, SELinux, and tunning kernel parameters. Also, containerd, kubeadm, kubelet, and kubectl are installed.
+After spinning up the instances, `prep_node.sh` script to be executed on each instance as a preparation step to get them configured up to specs in order to be able to install Kubernetes cluster via kubeadm. This involves disabling swap, SELinux, and tunning kernel parameters. Also, containerd, kubeadm, kubelet, and kubectl are installed.
 Once the nodes are prepared, one of the nodes - the one to serve as a control-plane, has to be initialized with the following kubeadm command:
 
 ```
