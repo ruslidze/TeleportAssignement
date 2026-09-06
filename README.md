@@ -59,6 +59,7 @@ kubectl apply --validate=false -f https://github.com/cert-manager/cert-manager/r
 
 Additional fix to make LB work is needed in the form of aws-lb-controller-sa.yaml pointing to the AWS role used above, follwed by a deployment restart
 ```
+   kubectl apply -f aws-lb-controller-sa.yaml
    kubectl rollout restart deployment aws-load-balancer-controller -n kube-system
 ```
 
