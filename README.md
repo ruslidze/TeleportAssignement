@@ -62,4 +62,8 @@ Additional fix to make LB work is needed in the form of aws-lb-controller-sa.yam
    kubectl rollout restart deployment aws-load-balancer-controller -n kube-system
 ```
 
+You also have to patch the nodes with the explicit AZ and instance ID in order to make this setup work. Both can be retrieved from the AWS instance details, and the node name from `kubectl get nodes` output. Example inputs:  "aws:///use1-az4/i-01388244a33f07830". The patch command shold be executed for each node and will look like below:
 
+```
+    kubectl patch node <node name> -p '{"spec":{"providerID":"aws:///<AZ>/<instance ID>"}}'
+```
