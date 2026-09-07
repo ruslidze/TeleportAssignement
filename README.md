@@ -49,7 +49,7 @@ For external access to services, the AWS Load Balancer controller was implemente
 * creating a role associated with the policy and binding it to the instances
 * Install cert manager:
 ```
-kubectl apply --validate=false -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.3/cert-manager.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.21.1/cert-manager.yaml
 ```
 * Download and apply LBC spec from https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/deploy/installation/#apply-yaml:
 ```
