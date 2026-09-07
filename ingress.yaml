@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test-ingress
+  namespace: test-namespace
+  annotations:
+    cert-manager.io/issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - web.ruslidze.com
+    secretName: quickstart-example-tls
+  rules:
+  - host: web.ruslidze.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-deployment
+            port:
+              number: 80
+
+
