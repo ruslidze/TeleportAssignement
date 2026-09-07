@@ -68,3 +68,24 @@ You also have to patch the nodes with the explicit AZ and instance ID in order t
 ```
     kubectl patch node <node name> -p '{"spec":{"providerID":"aws:///<AZ>/<instance ID>"}}'
 ```
+
+It is important to note, that with this setup, any LoadBalancer type services would have to have annotations in order to make the AWS LoadBalancer controller work. Something as follows to be added in the specs:
+
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  namespace: test-namespace
+  annotations:
+    # Triggers the AWS Load Balancer Controller instead of the legacy in-tree provider
+    service.beta.kubernetes.io/aws-load-balancer-type: "external"
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "instance"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+```
+
+or pathing:
+
+```
+kubectl patch svc ingress-nginx-controller -n ingress-nginx -p '{"metadata":{"annotations":{"service.beta.kubernetes.io/aws-load-balancer-type":"external","service.beta.kubernetes.io/aws-load-balancer-nlb-target-type":"instance","service.beta.kubernetes.io/aws-load-balancer-scheme":"internet-facing"}}}'
+```
