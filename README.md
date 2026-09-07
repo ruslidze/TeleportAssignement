@@ -1,4 +1,4 @@
-# TeleportAssignement
+# Teleport assignement
 Teleport K8s deployment assignment
 
 This repository is the implementation of the technical assignment for the Senior Field Engineer role.
@@ -51,7 +51,7 @@ For external access to services, the AWS Load Balancer controller was implemente
 ```
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.21.1/cert-manager.yaml
 ```
-* Download and apply LBC spec from https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/deploy/installation/#apply-yaml:
+* Download, edit (controller documentation recommends deleting the ServiceAccount section), and apply LBC spec from https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/deploy/installation/#apply-yaml:
 ```
     wget https://github.com/kubernetes-sigs/aws-load-balancer-controller/releases/download/v3.5.0/v3_5_0_full.yaml
     kubectl apply -f v3_5_0_full.yaml

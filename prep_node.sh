@@ -5,10 +5,10 @@
 ###  Preparation of the nodes for kubeadm initialization and joining
 ###  using the following ami - ami-04a30c3f913434cfb
 ###  https://containerd.io/releases/ - compatibility matrix
+###  run as root
 ######
 
 ### prepare
-sudo su -i
 swapoff -a
 sed -i '/swap/d' /etc/fstab
 setenforce 0
