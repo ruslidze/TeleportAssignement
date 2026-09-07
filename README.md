@@ -14,19 +14,17 @@ After spinning up the instances, `prep_node.sh` script to be executed on each in
 Once the nodes are prepared, one of the nodes - the one to serve as a control-plane, has to be initialized with the following kubeadm command:
 
 ```
-kubeadm init --apiserver-advertise-address=`curl -s http://169.254.169.254/latest/meta-data/local-ipv4` \ 
-	--apiserver-cert-extra-sans=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4` \ 
-	--pod-network-cidr=<CIDR>
+kubeadm init --apiserver-advertise-address=`curl -s http://169.254.169.254/latest/meta-data/local-ipv4` --apiserver-cert-extra-sans=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4` --pod-network-cidr=10.244.0.0/16
 ```
 
 DNS names can be added to '--apiserver-cert-extra-sans' separated by comma, for access, for which you can point a DNS API-access entry to the IP of control-plane as an A record:
 
 ```
-kubeadm init --apiserver-advertise-address=`curl -s http://169.254.169.254/latest/meta-data/local-ipv4` \ 
-	--apiserver-cert-extra-sans=k8s.ruslidze.com,`curl -s http://169.254.169.254/latest/meta-data/public-ipv4` \ 
-	--pod-network-cidr=<CIDR>
+kubeadm init --apiserver-advertise-address=`curl -s http://169.254.169.254/latest/meta-data/local-ipv4` --apiserver-cert-extra-sans=k8s.ruslidze.com,`curl -s http://169.254.169.254/latest/meta-data/public-ipv4` --pod-network-cidr=10.244.0.0/16
+
 ```
 
+The `--pod-network-cidr=10.244.0.0/16` is used as this is the default CIDR for Flannel installed as a next step.
 This will initiallize the control-plane node, after which you'd have to deploy a pod network, for example Flannel:
 
 ```
