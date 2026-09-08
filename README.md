@@ -129,7 +129,7 @@ kubectl config set-context ruslan-kubernetes --cluster=kubernetes --user=ruslan
 Create a new namespace, role, and role binding for the new user:
 
 ```
-kubectl apply -f test_role.yaml
+kubectl apply -f RBAC/test_role.yaml
 ```
 
 Switch context to your newly created one for the new user:
