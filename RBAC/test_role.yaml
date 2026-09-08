@@ -3,6 +3,11 @@ kind: Namespace
 metadata:
   name: test-namespace
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test-namespace2
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
