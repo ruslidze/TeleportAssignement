@@ -50,7 +50,7 @@ data:
     <!DOCTYPE html>
     <html>
     <head>
-    <title>Welcome to nginx!</title>
+    <title>Welcome to nginx!A little tweaked...</title>
     <style>
         body {
             width: 35em;
