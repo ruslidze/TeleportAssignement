@@ -60,6 +60,7 @@ kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/
 * Download, edit (controller documentation recommends deleting the ServiceAccount section), and apply LBC spec from https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/deploy/installation/#apply-yaml:
 ```
     wget https://github.com/kubernetes-sigs/aws-load-balancer-controller/releases/download/v3.5.0/v3_5_0_full.yaml
+    vi v3_5_0_full.yaml
     kubectl apply -f v3_5_0_full.yaml
 ```
 
@@ -140,9 +141,9 @@ kubectl config use-context ruslan-kubernetes
 And deploy the workload in the new namespace as the new user:
 
 ```
-kubectl apply -f nginx.yaml
-kubectl apply -f prodIssuer.yaml
-kubectl apply -f ingress.yaml 
+kubectl apply -f workload/nginx.yaml
+kubectl apply -f workload/prodIssuer.yaml
+kubectl apply -f workload/ingress.yaml 
 ```
 
 
