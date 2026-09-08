@@ -161,8 +161,10 @@ Fetch default admin password for UI:
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 ```
 Connect repo in UI by navigating to Settings -> Repositories -> "+ CONNECT REPO" -> "VIA SSH" -> provide name, project, repo URL (git@github.com:ruslidze/TeleportAssignement.git) and a private ssh key to access the repo, stored in ~/.ssh -> CONNECT
+
 In the Applications -> "+ NEW APP" fill in the basic fields.
 Add SOURCE repo and set the path to workload1 directory (workload is for manual execution).
 Add https://kubernetes.default.svc as a destination and test-namespace as a namespace.
+
 CREATE
 
