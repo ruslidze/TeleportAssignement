@@ -16,7 +16,7 @@ spec:
   - host: web.ruslidze.com
     http:
       paths:
-      - path: /first
+      - path: /
         pathType: Prefix
         backend:
           service:
