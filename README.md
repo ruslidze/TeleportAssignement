@@ -147,3 +147,22 @@ kubectl apply -f workload/ingress.yaml
 ```
 
 
+## Extra: Installing ArgoCD and running an nginx on top
+
+Install ArgoCD and patch the service for access:
+
+```
+kubectl apply -n argocd --server-side --force-conflicts -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl patch svc argocd-server -n argocd -p '{"metadata":{"annotations":{"service.beta.kubernetes.io/aws-load-balancer-type":"external","service.beta.kubernetes.io/aws-load-balancer-nlb-target-type":"instance","service.beta.kubernetes.io/aws-load-balancer-scheme":"internet-facing"}}}'
+```
+Fetch default admin password for UI:
+
+```
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+```
+Connect repo in UI by navigating to Settings -> Repositories -> "+ CONNECT REPO" -> "VIA SSH" -> provide name, project, repo URL (git@github.com:ruslidze/TeleportAssignement.git) and a private ssh key to access the repo, stored in ~/.ssh -> CONNECT
+In the Applications -> "+ NEW APP" fill in the basic fields.
+Add SOURCE repo and set the path to workload1 directory (workload is for manual execution).
+Add https://kubernetes.default.svc as a destination and test-namespace as a namespace.
+CREATE
+
