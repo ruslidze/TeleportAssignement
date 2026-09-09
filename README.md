@@ -174,8 +174,6 @@ CREATE
 
 ## Extra: Installing Teleport
 
-The first part of below is based on https://goteleport.com/docs/get-started/deploy-community/
-
 1. Spin up an instance with ami-041561b526a948565 as preinstalled AMI with teleport 18.11 as per https://goteleport.com/docs/installation/single-machine/amazon-ec2/ and apply fresh config 
 
 ```
