@@ -53,11 +53,19 @@ For external access to services, the AWS Load Balancer controller was implemente
 * tagging the subnets where the nodes are deployed (`kubernetes.io/cluster/kubernetes = shared` and `kubernetes.io/role/elb = 1`)
 * creating and IAM policy per `https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v3.5.0/docs/install/iam_policy.json`
 * creating a role associated with the policy and binding it to the instances (In IAM Management -> Roles -> Create role -> AWS service -> EC2 -> EC2 -> Next -> Use existing policy -> your policy)
-* Install cert manager:
+
+You also have to patch the nodes with the explicit AZ and instance ID in order to make this setup work. Both can be retrieved from the AWS instance details, and the node name from `kubectl get nodes` output. Example inputs:  "aws:///use1-az4/i-01388244a33f07830". The patch command shold be executed for each node and will look like below:
+
+```
+    kubectl patch node <node name> -p '{"spec":{"providerID":"aws:///<AZ>/<instance ID>"}}'
+```
+
+
+Install cert manager:
 ```
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.21.1/cert-manager.yaml
 ```
-* Download, edit (controller documentation recommends deleting the ServiceAccount section), and apply LBC spec from https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/deploy/installation/#apply-yaml:
+Download, edit (controller documentation recommends deleting the ServiceAccount section), and apply LBC spec from https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/deploy/installation/#apply-yaml:
 ```
     wget https://github.com/kubernetes-sigs/aws-load-balancer-controller/releases/download/v3.5.0/v3_5_0_full.yaml
     vi v3_5_0_full.yaml
@@ -68,12 +76,6 @@ Additional fix to make LB work is needed in the form of aws-lb-controller-sa.yam
 ```
    kubectl apply -f aws-lb-controller-sa.yaml
    kubectl rollout restart deployment aws-load-balancer-controller -n kube-system
-```
-
-You also have to patch the nodes with the explicit AZ and instance ID in order to make this setup work. Both can be retrieved from the AWS instance details, and the node name from `kubectl get nodes` output. Example inputs:  "aws:///use1-az4/i-01388244a33f07830". The patch command shold be executed for each node and will look like below:
-
-```
-    kubectl patch node <node name> -p '{"spec":{"providerID":"aws:///<AZ>/<instance ID>"}}'
 ```
 
 It is important to note, that with this setup, any LoadBalancer type services would have to have annotations in order to make the AWS LoadBalancer controller work. Something as follows to be added in the specs:
@@ -152,6 +154,7 @@ kubectl apply -f workload/ingress.yaml
 Install ArgoCD and patch the service for access:
 
 ```
+kubectl create namespace argocd 
 kubectl apply -n argocd --server-side --force-conflicts -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 kubectl patch svc argocd-server -n argocd -p '{"metadata":{"annotations":{"service.beta.kubernetes.io/aws-load-balancer-type":"external","service.beta.kubernetes.io/aws-load-balancer-nlb-target-type":"instance","service.beta.kubernetes.io/aws-load-balancer-scheme":"internet-facing"}}}'
 ```
