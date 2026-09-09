@@ -174,16 +174,16 @@ CREATE
 
 ## Extra: Installing Teleport
 
-1. Spin up an instance with ami-041561b526a948565 as preinstalled AMI with teleport 18.11 as per https://goteleport.com/docs/installation/single-machine/amazon-ec2/ and apply fresh config 
+Spin up an instance with ami-041561b526a948565 as preinstalled AMI with teleport 18.11 as per https://goteleport.com/docs/installation/single-machine/amazon-ec2/ and apply fresh config 
 
 ```
 sudo rm -f /etc/teleport.yaml
 sudo teleport configure -o file --acme --acme-email=ruslidze+teleport@gmail.com --cluster-name=teleport.ruslidze.com
 ```
 
-2. Configure DNS pointing both entries - `teleport.ruslidze.com` and `*.teleport.ruslidze.com` - to an external IP of the instance. Make sure security group allows port 443 from anywhere as the service needs to have access for domain verification from Let's Encrypt. By now you should have access to the Web UI.
+Configure DNS pointing both entries - `teleport.ruslidze.com` and `*.teleport.ruslidze.com` - to an external IP of the instance. Make sure security group allows port 443 from anywhere as the service needs to have access for domain verification from Let's Encrypt. By now you should have access to the Web UI.
 
-3. Create a new user:
+Create a new user:
 
 ```
 sudo tctl users add teleport-admin --roles=editor,access,auditor --logins=root,ubuntu,ec2-user
