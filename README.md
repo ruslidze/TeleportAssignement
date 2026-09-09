@@ -157,6 +157,7 @@ Install ArgoCD and patch the service for access:
 kubectl create namespace argocd 
 kubectl apply -n argocd --server-side --force-conflicts -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 kubectl patch svc argocd-server -n argocd -p '{"metadata":{"annotations":{"service.beta.kubernetes.io/aws-load-balancer-type":"external","service.beta.kubernetes.io/aws-load-balancer-nlb-target-type":"instance","service.beta.kubernetes.io/aws-load-balancer-scheme":"internet-facing"}}}'
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
 ```
 Fetch default admin password for UI:
 
